@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.29"
+      version = "~> 4.0.0"
     }
 
     archive = {
@@ -20,9 +20,4 @@ provider "aws" {
   alias = "cur"
 
   region = "us-east-1"
-
-  assume_role {
-    role_arn     = var.cur_role_arn
-    session_name = var.cur_role_session_name
-  }
 }
