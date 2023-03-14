@@ -52,8 +52,6 @@ resource "aws_s3_bucket" "cur" {
   count = var.use_existing_s3_bucket ? 0 : 1
 
   bucket = var.s3_bucket_name
-  acl    = "private"
-
   tags = var.tags
 }
 
@@ -76,6 +74,12 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cur_sse" {
         sse_algorithm     = "aws:kms"
       }
     }
+}
+
+resource "aws_s3_bucket_acl" "example_bucket_acl" {
+  count = var.use_existing_s3_bucket ? 0 : 1
+  bucket = aws_s3_bucket.cur[count.index].id
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_public_access_block" "cur" {
